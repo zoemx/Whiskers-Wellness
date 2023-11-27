@@ -3,6 +3,9 @@ import java.util.Scanner;  // Import the Scanner class
 
 public class Main {
     public static  void main(String[] args){
+            feedingSchedule feed = new feedingSchedule();
+            feed.start();
+
         DbConnection db = new DbConnection();
         Connection conn = db.connect_to_db("cat", "postgres", "postgres");
         db.createTable(conn, "cat");
@@ -48,6 +51,7 @@ System.out.print(hlp.help);
             System.out.println("You've entered a command");
             if (cmd.equals("help")){
                 help hlp = new help();
+
                 cmd = myObj2.nextLine();
             }else if (cmd.equals("add weight")){
                 System.out.println("Please enter weight:");
