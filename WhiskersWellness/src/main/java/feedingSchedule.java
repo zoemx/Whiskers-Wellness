@@ -4,19 +4,23 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class feedingSchedule extends Thread {
+    private String timeToCompare;
 
-    public static void main(String[] args) {
-        System.out.println("hey");
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
+    public feedingSchedule(String timeToCompare) {
+        this.timeToCompare = timeToCompare;
+    }
+
             public void run() {
 
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
                 // try {
                 // Schedule the task to run every 1 second
 
                 String currentTime = new SimpleDateFormat("HH:mm").format(new Date());
-                String timeToCompare = "14:07";
+               // String timeToCompare = "14:17";
                 boolean x = currentTime.equals(timeToCompare);
                 System.out.println(x);
                 if (x) {
@@ -32,7 +36,7 @@ public class feedingSchedule extends Thread {
 
 
         };
-        timer.schedule(task, 1000, 1000);
+        timer.schedule(task, 1000, 60000);
 
     }
 }

@@ -72,7 +72,23 @@ public void createTable(Connection conn, String table_name){
             System.out.println(e);
         }
     }
-
+    public void read_w(Connection conn, String table_name){
+    Statement statement;
+    ResultSet result = null;
+    try {
+        String query = String.format("select * from %s", table_name);
+        statement = conn.createStatement();
+        result = statement.executeQuery(query);
+        System.out.println("Date    Weight (lbs)");
+        System.out.println("------------------------");
+        while(result.next()){
+            System.out.println(result.getString("date")+" | "+ result.getString("weight")+" ");
+            System.out.println("------------------------");
+        }
+    }catch(Exception e){
+        System.out.println(e);
+    }
+    }
 }
 
 

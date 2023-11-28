@@ -3,8 +3,7 @@ import java.util.Scanner;  // Import the Scanner class
 
 public class Main {
     public static  void main(String[] args){
-            feedingSchedule feed = new feedingSchedule();
-            feed.start();
+
 
         DbConnection db = new DbConnection();
         Connection conn = db.connect_to_db("cat", "postgres", "postgres");
@@ -30,42 +29,59 @@ public class Main {
 
         }
 
+        System.out.println("Please Enter the time when "+userName+" is fed:");
+        Scanner t = new Scanner(System.in);  //
+        String time = t.nextLine();
+
+
+        feedingSchedule feed = new feedingSchedule(time);
+        feed.start();
+
+
+
         db.insert_row(conn,"cat",userName, cat_weight);
         db.insert_Wrow(conn, "weight_tracker", cat_weight);
 System.out.println("Now let's get familiar with the app!");
 System.out.println("There are multiple commands to navigate the app!");
 System.out.println("Type add weight to add a weight measurement for "+userName);
-System.out.println("If you ever forget, just type Help and the command list will pop right back up!");
+System.out.println("If you ever forget, just type help and the command list will pop right back up!");
         Scanner myObj2 = new Scanner(System.in);  // Create a Scanner object
 
-        String command = myObj2.nextLine();  // Read user input
-        if (command.equals("help")){
-            help hlp = new help();
-System.out.print(hlp.help);
-        }else{
-            System.out.println("Oops that's not command!");
-        }
         String cmd = myObj2.nextLine();  // Read user input
+//        if (command.equals("help")){
+//            help hlp = new help();
+//System.out.print(hlp.help);
+//        }else{
+//            System.out.println("Oops that's not command!");
+//        }
+        //String cmd = myObj2.nextLine();  // Read user input
 
         while (!cmd.equals("end")){
             System.out.println("You've entered a command");
             if (cmd.equals("help")){
                 help hlp = new help();
-
+                System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
             }else if (cmd.equals("add weight")){
                 System.out.println("Please enter weight:");
                 cat_weight = myObj.nextDouble();
                 db.insert_Wrow(conn, "weight_tracker", cat_weight);
+                System.out.println("Please enter a new command");
+                cmd = myObj2.nextLine();
+            } else if (cmd.equals("read weight")){
+                db.read_w(conn, "weight_tracker");
+                System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
             } else {
                 System.out.println("That's not a command! Try again");
                 help hlp = new help();
+                System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
 
             }
 
         }
     }
-}
+
+    }
 
