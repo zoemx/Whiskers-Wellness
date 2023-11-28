@@ -3,12 +3,14 @@ import java.util.Scanner;  // Import the Scanner class
 
 public class Main {
     public static  void main(String[] args){
-
+        Scanner deats = new Scanner(System.in);
+        String details;
 
         DbConnection db = new DbConnection();
         Connection conn = db.connect_to_db("cat", "postgres", "postgres");
         db.createTable(conn, "cat");
         db.createWTable(conn, "weight_tracker");
+        db.createTableV(conn, "vet_visits");
 
         System.out.println();
         System.out.println("Welcome to Whiskers & Wellness! ≽^•⩊•^≼ ");
@@ -29,12 +31,14 @@ public class Main {
 
         }
 
-        System.out.println("Please Enter the time when "+userName+" is fed:");
+        System.out.println("Please Enter the AM time when "+userName+" is fed:");
         Scanner t = new Scanner(System.in);  //
-        String time = t.nextLine();
+        String timeA = t.nextLine();
+        System.out.println("Please Enter the PM time when "+userName+" is fed:");
+        Scanner b = new Scanner(System.in);  //
+        String timeP = t.nextLine();
 
-
-        feedingSchedule feed = new feedingSchedule(time);
+        feedingSchedule feed = new feedingSchedule(timeA, timeP);
         feed.start();
 
 
@@ -56,26 +60,44 @@ System.out.println("If you ever forget, just type help and the command list will
 //        }
         //String cmd = myObj2.nextLine();  // Read user input
 
-        while (!cmd.equals("end")){
-            System.out.println("You've entered a command");
-            if (cmd.equals("help")){
+        while (!cmd.equals("end")) {
+            System.out.println("You've entered "+cmd);
+            if (cmd.equals("help")) {
                 help hlp = new help();
+                System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
-            }else if (cmd.equals("add weight")){
+            } else if (cmd.equals("add weight")) {
                 System.out.println("Please enter weight:");
                 cat_weight = myObj.nextDouble();
                 db.insert_Wrow(conn, "weight_tracker", cat_weight);
+                System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
-            } else if (cmd.equals("read weight")){
+            } else if (cmd.equals("read weight")) {
                 db.read_w(conn, "weight_tracker");
+                System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
-            } else {
+            }else if (cmd.equals("add vet visit")){
+                System.out.println("Please enter details:");
+                details = deats.nextLine();
+                db.insert_Vrow(conn, "vet_visits", details);
+                System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
+                System.out.println("Please enter a new command");
+                cmd = myObj2.nextLine();
+        }else if (cmd.equals("read vet visits")){
+                db.read_V(conn, "vet_visits");
+                System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
+                System.out.println("Please enter a new command");
+                cmd = myObj2.nextLine();
+            }else {
                 System.out.println("That's not a command! Try again");
                 help hlp = new help();
+                System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
+                //System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
+
                 cmd = myObj2.nextLine();
 
             }

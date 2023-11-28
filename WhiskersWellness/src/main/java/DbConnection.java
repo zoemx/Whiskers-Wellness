@@ -22,20 +22,34 @@ public Connection connect_to_db(String dbname, String user, String pass){
     }
 return conn;
 }
-public void createTable(Connection conn, String table_name){
+public void createTable(Connection conn, String table_name) {
     Statement statement;
 
-    try{
-        String query ="create table "+table_name+" (id SERIAL, name varchar(200), weight decimal(100, 1));";
+    try {
+        String query = "create table " + table_name + " (id SERIAL, name varchar(200), weight decimal(100, 1));";
 
 
-        statement=conn.createStatement();
+        statement = conn.createStatement();
         statement.executeUpdate(query);
-       // System.out.println("Table Created");
-    }catch(Exception e){
-       // System.out.print(e);
+        // System.out.println("Table Created");
+    } catch (Exception e) {
+        // System.out.print(e);
     }
 }
+
+    public void createTableV(Connection conn, String table_name){
+        Statement statement;
+
+        try{
+            String query ="create table "+table_name+" (date DATE DEFAULT CURRENT_TIMESTAMP, details varchar(200));";
+            statement=conn.createStatement();
+            statement.executeUpdate(query);
+            // System.out.println("Table Created");
+        }catch(Exception e){
+            // System.out.print(e);
+        }
+    }
+
     public void createWTable(Connection conn, String table_name){
         Statement statement;
 
@@ -72,6 +86,18 @@ public void createTable(Connection conn, String table_name){
             System.out.println(e);
         }
     }
+
+    public void insert_Vrow(Connection conn,String table_name,String visit){
+        Statement statement;
+        try {
+            String query=String.format("insert into %s(details) values( '%s');",table_name, visit);
+            statement=conn.createStatement();
+            statement.executeUpdate(query);
+            // System.out.println("Row Inserted");
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
     public void read_w(Connection conn, String table_name){
     Statement statement;
     ResultSet result = null;
@@ -88,6 +114,23 @@ public void createTable(Connection conn, String table_name){
     }catch(Exception e){
         System.out.println(e);
     }
+    }
+    public void read_V(Connection conn, String table_name){
+        Statement statement;
+        ResultSet result = null;
+        try {
+            String query = String.format("select * from %s", table_name);
+            statement = conn.createStatement();
+            result = statement.executeQuery(query);
+            System.out.println("Date    Details");
+            System.out.println("------------------------");
+            while(result.next()){
+                System.out.println(result.getString("date")+" | "+ result.getString("details")+" ");
+                System.out.println("------------------------");
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }
 }
 

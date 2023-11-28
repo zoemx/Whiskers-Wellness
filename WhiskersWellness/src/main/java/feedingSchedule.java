@@ -4,10 +4,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class feedingSchedule extends Thread {
-    private String timeToCompare;
+    private String timeToComparea;
+    private String timeToComparep;
 
-    public feedingSchedule(String timeToCompare) {
-        this.timeToCompare = timeToCompare;
+    public feedingSchedule(String timeToComparea, String timeToComparep) {
+        this.timeToComparea = timeToComparea;
+        this.timeToComparep = timeToComparep;
     }
 
             public void run() {
@@ -21,9 +23,10 @@ public class feedingSchedule extends Thread {
 
                 String currentTime = new SimpleDateFormat("HH:mm").format(new Date());
                // String timeToCompare = "14:17";
-                boolean x = currentTime.equals(timeToCompare);
-                System.out.println(x);
-                if (x) {
+                boolean x = currentTime.equals(timeToComparea);
+                boolean y = currentTime.equals(timeToComparep);
+
+                if (x || y) {
                     System.out.println("It's time to feed your cat!");
                 }
                 //} catch (Exception e) {
