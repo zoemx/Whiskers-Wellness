@@ -43,7 +43,7 @@ public class Main {
 
 
 
-        db.insert_row(conn,"cat",userName, cat_weight);
+        db.insert_row(conn,"cats",userName, cat_weight);
         db.insert_Wrow(conn, "weight_tracker", cat_weight);
 System.out.println("Now let's get familiar with the app!");
 System.out.println("There are multiple commands to navigate the app!");
@@ -60,33 +60,34 @@ System.out.println("If you ever forget, just type help and the command list will
 //        }
         //String cmd = myObj2.nextLine();  // Read user input
 
-        while (!cmd.equals("end")) {
+        while (!cmd.equalsIgnoreCase("end")) {
             System.out.println("You've entered "+cmd);
-            if (cmd.equals("help")) {
+            if (cmd.equalsIgnoreCase("help")) {
                 help hlp = new help();
+                System.out.println(hlp.help);
                 System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
-            } else if (cmd.equals("add weight")) {
+            } else if (cmd.equalsIgnoreCase("add weight")) {
                 System.out.println("Please enter weight:");
                 cat_weight = myObj.nextDouble();
                 db.insert_Wrow(conn, "weight_tracker", cat_weight);
                 System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
-            } else if (cmd.equals("read weight")) {
+            } else if (cmd.equalsIgnoreCase("read weight")) {
                 db.read_w(conn, "weight_tracker");
                 System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
-            }else if (cmd.equals("add vet visit")){
+            }else if (cmd.equalsIgnoreCase("add vet visit")){
                 System.out.println("Please enter details:");
                 details = deats.nextLine();
                 db.insert_Vrow(conn, "vet_visits", details);
                 System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
                 cmd = myObj2.nextLine();
-        }else if (cmd.equals("read vet visits")){
+        }else if (cmd.equalsIgnoreCase("read vet visits")){
                 db.read_V(conn, "vet_visits");
                 System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
@@ -94,6 +95,7 @@ System.out.println("If you ever forget, just type help and the command list will
             }else {
                 System.out.println("That's not a command! Try again");
                 help hlp = new help();
+                System.out.println(hlp.help);
                 System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
                 System.out.println("Please enter a new command");
                 //System.out.println("≽^•⩊•^≼ ⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖°⋆˚\uD83D\uDC3E˖° ≽^•⩊•^≼");
